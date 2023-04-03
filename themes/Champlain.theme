@@ -1,0 +1,23 @@
+fish_color_autosuggestion 555555
+fish_color_cancel --reverse
+fish_color_command 5ea702
+fish_color_comment 666666
+fish_color_cwd --bold 427ab3
+fish_color_cwd_root --bold d81e00
+fish_color_end 54ced6
+fish_color_error ff3334
+fish_color_escape --bold e7c547
+fish_color_history_current --bold
+fish_color_host 9ec400
+fish_color_host_remote e7c547
+fish_color_match --background=427ab3
+fish_color_normal normal
+fish_color_operator b77ee0
+fish_color_param normal
+fish_color_quote cfae00
+fish_color_redirection 54ced6
+fish_color_search_match e7c547 --background=666666
+fish_color_selection ffffff --bold --background=666666
+fish_color_status d81e00
+fish_color_user 7aa6da
+fish_color_valid_path --underline
