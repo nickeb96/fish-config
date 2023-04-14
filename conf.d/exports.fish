@@ -10,6 +10,7 @@ set -gx LIBRARY_PATH ~/.local/lib
 
 set -gx PYTHONPATH ~/.local/lib/python3
 set -gx PYTHONSTARTUP ~/.config/python/startup.py
+set -gx PYTHONDONTWRITEBYTECODE 1
 
 # if command -q nvim
 #     set -gx MANPAGER "nvim +Man!"
