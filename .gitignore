@@ -1,2 +1,3 @@
 # ignore universal variables
 /fish_variables
+/config.fish
