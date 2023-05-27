@@ -3,7 +3,7 @@ status is-interactive || exit
 abbr -a cp 'cp -i'
 abbr -a mv 'mv -i'
 abbr -a rm 'rm -I'
-abbr -a l 'less -RXSF'
+abbr -a less 'less -RXSF'
 abbr -a grep 'grep -E'
 abbr -a sed 'sed -E'
 abbr -a echon 'printf \'%s\n\''

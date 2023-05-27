@@ -1,8 +1,7 @@
 function fish_greeting
-    if test -f ~/.todo.md && test -s ~/.todo.md
-        echo '#### To Do List ####'
-        cat ~/.todo.md
-        echo
+    set -l todo ~/notes/todo.md
+    if test -f $todo
+        cat $todo
     end
     if type -q when
         when
