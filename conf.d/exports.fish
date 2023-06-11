@@ -19,3 +19,12 @@ set -gx PYTHONDONTWRITEBYTECODE 1
 set -q rsync_options
 or set -g rsync_options --times --crtimes --open-noatime \
     --perms --owner --group --links --recursive
+
+contains qmark-noglob $fish_features
+or set -a fish_features qmark-noglob
+
+contains ~/.config/bin $fish_user_paths
+or fish_add_path ~/.config/bin
+
+contains ~/.local/bin $fish_user_paths
+or fish_add_path ~/.local/bin

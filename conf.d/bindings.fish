@@ -1,5 +1,6 @@
 status is-interactive || exit
 
+# better version of bind ... forward-bigword
 function __forward_bigword_custom
     set -l cmd (commandline)
     set -l length (string length -- "$cmd")
@@ -13,7 +14,22 @@ function __forward_bigword_custom
     commandline -C (math "$cursor - 1")
 end
 
+# better version of bind ... cancel or kill-whole-line
+function __cancel_or_kill_line
+    if commandline --search-mode || commandline --paging-mode
+        commandline -f cancel
+    else
+        commandline -f kill-whole-line
+    end
+end
+
 bind \ce edit_command_buffer
-bind \cc cancel or kill-whole-line
+bind \cc __cancel_or_kill_whole_line_custom
 bind \cb backward-bigword
 bind \cw __forward_bigword_custom
+bind \co insert-line-over
+bind \cj down-line
+bind \ck up-line
+bind \ch backward-char
+bind \cl forward-char
+bind \cf accept-autosuggestion
