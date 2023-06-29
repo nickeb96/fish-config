@@ -13,7 +13,7 @@ end
 # character device      f5c946
 # orphan                ec8282
 # missing link target   999999
-# setuid                b0d46d + reverse
+# setuid                b0d46d + reverse + bold
 # setgid                b0d46d + reverse
 # capability            bold
 # sticky other writable 82a4e2 + reverse

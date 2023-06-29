@@ -23,8 +23,8 @@ or set -g rsync_options --times --crtimes --open-noatime \
 contains qmark-noglob $fish_features
 or set -a fish_features qmark-noglob
 
-contains ~/.config/bin $fish_user_paths
-or fish_add_path ~/.config/bin
+contains ~/.cargo/bin $fish_user_paths
+or fish_add_path ~/.cargo/bin
 
 contains ~/.local/bin $fish_user_paths
 or fish_add_path ~/.local/bin
