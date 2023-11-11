@@ -1,5 +1,5 @@
 function pss -d 'List processes on the machine'
-    switch (uname)
+    switch (uname -s)
         case 'Darwin'
             command ps -Aco 'user,ruser,pid,ppid,%cpu,%mem,state,comm'
         case 'Linux'

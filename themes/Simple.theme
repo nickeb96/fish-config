@@ -1,0 +1,38 @@
+fish_color_normal normal
+fish_color_user --dim
+fish_color_host --dim
+fish_color_host_remote --dim yellow
+fish_color_cwd normal
+fish_color_cwd_root --dim --italics red
+fish_color_status --dim red
+fish_color_command brgreen
+fish_color_keyword brgreen
+fish_color_error brred
+fish_color_option normal
+fish_color_param normal
+fish_color_valid_path --underline
+fish_color_autosuggestion brblack
+fish_color_cancel --reverse
+fish_color_escape --bold bryellow
+fish_color_quote bryellow
+fish_color_operator brcyan
+fish_color_redirection brblue
+fish_color_end --dim cyan
+fish_color_comment --italics brblack
+fish_color_search_match --background=black
+fish_color_selection normal --bold --background=brblack
+fish_color_history_current --bold
+
+fish_pager_color_progress --italics --dim
+fish_pager_color_background
+fish_pager_color_prefix --bold
+fish_pager_color_completion normal
+fish_pager_color_description yellow
+fish_pager_color_secondary_background
+fish_pager_color_secondary_prefix --bold
+fish_pager_color_secondary_completion normal
+fish_pager_color_secondary_description yellow
+fish_pager_color_selected_background --background=black
+fish_pager_color_selected_prefix --bold
+fish_pager_color_selected_completion --bold
+fish_pager_color_selected_description --bold yellow

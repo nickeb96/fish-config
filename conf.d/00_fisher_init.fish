@@ -1,4 +1,4 @@
-# this file starts with ! so it is loaded before everything else
+# this file starts with 00 so it is loaded before everything else
 
 if not set -q fisher_path
     if set -q XDG_DATA_HOME

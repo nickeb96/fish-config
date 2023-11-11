@@ -26,8 +26,8 @@ function prompt_login --description "display user name for the prompt"
 
     set -l at_sign_color normal
     if jobs -c | count >/dev/null
-        set at_sign_color $fish_color_cwd_root
+        set at_sign_color $fish_color_status
     end
 
-    echo -n -s (set_color $fish_color_user) "$USER" (set_color $at_sign_color) @ (set_color $color_host) (prompt_hostname) (set_color normal)
+    echo -n -s (set_color $fish_color_user) "$USER" (set_color reset) (set_color $at_sign_color) @ (set_color reset) (set_color $color_host) (prompt_hostname) (set_color normal)
 end

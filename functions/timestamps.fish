@@ -1,5 +1,5 @@
 function timestamps -d 'Display creation, modified, and last access date of files'
-    switch (uname)
+    switch (uname -s)
         case 'Darwin'
             command stat -f '%N%n%tcreate: %SB%n%tmodify: %Sm%n%taccess: %Sa' -- $argv
         case 'Linux'
