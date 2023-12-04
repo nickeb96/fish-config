@@ -1,10 +1,11 @@
 function pip --wraps=pip3
-    if string match -q 'search' $argv[1]
+    set -l pipcmd (command -v pip || command -v pip3 || echo pip)
+    if string match -q -- 'search' $argv[1]
         if not command -q pip_search
-            command pip3 install pip_search >/dev/null 2>/dev/null
+            command $pipcmd install pip_search >/dev/null 2>/dev/null
         end
-        pip_search $argv[2..]
+        pip_search --date_format '%m/%d/%Y' $argv[2..]
     else
-        command pip3 $argv
+        command $pipcmd $argv
     end
 end

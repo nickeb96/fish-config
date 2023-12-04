@@ -1,5 +1,5 @@
 function rg --wraps=rg
-    if isatty stdout
+    if status is-interactive && isatty stdout
         command rg --color=always $argv | less -RXSF
     else
         command rg $argv

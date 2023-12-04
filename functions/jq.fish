@@ -1,5 +1,5 @@
 function jq --wraps=jq
-    if isatty stdout
+    if status is-interactive && isatty stdout
         command jq --color-output $argv | less -RXSF
     else
         command jq $argv

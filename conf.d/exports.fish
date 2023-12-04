@@ -1,6 +1,8 @@
 set -gx EDITOR nvim
 set -gx PAGER less
 set -gx LESSHISTFILE /dev/null
+set -gx SQLITE_HISTORY /dev/null
+set -gx PSQL_HISTORY /dev/null
 
 set -gx CPATH ~/.local/include /opt/homebrew/include
 set -gx CPLUS_INCLUDE_PATH ~/.local/include/c++ /opt/homebrew/include/c++

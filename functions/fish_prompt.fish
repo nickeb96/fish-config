@@ -30,8 +30,16 @@ function fish_prompt --description 'Write out the prompt'
     set -l statusb_color (set_color $bold_flag $fish_color_status)
     set -l prompt_status (__fish_print_pipestatus "[" "]" "|" "$status_color" "$statusb_color" $last_pipestatus)
 
+    if set -q STY
+        echo -ns (set_color $fish_color_host) '[screen]' $normal ' '
+    end
+
+    if set -q TMUX
+        echo -ns (set_color $fish_color_host) '[tmux]' $normal ' '
+    end
+
     echo -ns (fish_vcs_prompt | string trim --left)' '
-    if [ $COLUMNS -ge 80 ]
+    if [ $COLUMNS -ge 65 ]
         echo -ns (prompt_login)' '
     end
 
