@@ -38,10 +38,10 @@ function fish_prompt --description 'Write out the prompt'
         echo -ns (set_color $fish_color_host) '[tmux]' $normal ' '
     end
 
-    echo -ns (fish_vcs_prompt | string trim --left)' '
-    if [ $COLUMNS -ge 65 ]
+    if [ $COLUMNS -ge 60 ]
         echo -ns (prompt_login)' '
     end
+    echo -ns (fish_vcs_prompt | string trim --left)' '
 
     echo -ns (set_color $color_cwd) (prompt_pwd) $normal
 

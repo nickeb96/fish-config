@@ -20,4 +20,4 @@ complete -c rustfmt -l skip-children -d 'Don\'t reformat child modules'
 complete -c rustfmt -l verbose -s v -d 'Print verbose output'
 complete -c rustfmt -l quiet -s q -d 'Print less output'
 complete -c rustfmt -l version -s V -d 'Show version information'
-complete -c rustfmt -l help -s h -d 'Show help' -fa 'config file-lines'
+complete -c rustfmt -l help -s h -d 'Show help' -a 'config file-lines' -f

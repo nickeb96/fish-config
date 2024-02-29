@@ -1,5 +1,5 @@
 function cat --wraps=cat --description 'Fold markdown files instead of cat when interactive'
-    if status is-interactive
+    if status is-interactive && isatty stdout
         # if there are more than 0 input files and they are all markdown, use
         # fold instead
         set -l markdown 0
