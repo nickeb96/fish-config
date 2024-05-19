@@ -14,7 +14,7 @@ function fish_prompt --description 'Write out the prompt'
         end
         set suffix '#'
     end
-    if dirs | count >/dev/null
+    if count $dirstack >/dev/null
         set suffix (set_color --bold $fish_color_operator)$suffix$normal
     end
 
@@ -38,7 +38,7 @@ function fish_prompt --description 'Write out the prompt'
         echo -ns (set_color $fish_color_host) '[tmux]' $normal ' '
     end
 
-    if [ $COLUMNS -ge 60 ]
+    if [ $COLUMNS -ge 70 ]
         echo -ns (prompt_login)' '
     end
     echo -ns (fish_vcs_prompt | string trim --left)' '
