@@ -16,7 +16,7 @@ function _verify_quit
             commandline -f repaint
             functions -e _reset_ctrl_d
         end
-    else if [ $_ctrl_d_pressed -lt 2 ]
+    else if [ $_ctrl_d_pressed -lt 1 ]
         set -g _ctrl_d_pressed (math "$_ctrl_d_pressed + 1")
     else
         exit 0

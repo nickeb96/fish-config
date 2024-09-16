@@ -15,9 +15,9 @@ function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
     end
 
     set -l len (string length -- $file)
-    set -l pid %self
+    set -l pid $fish_pid
 
-    set temp_dir (mktemp -d -t "vigpg-$pid")
+    set temp_dir (mktemp -d -t "vigpg-$pid-XXXXXX")
     chmod u=rwx,go= $temp_dir
 
     set -l file_base (basename -s .gpg $file)
@@ -29,12 +29,12 @@ function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
         gpg --yes -o $temp_file -d $file
     end
 
-    set -l start (stat -f '%Dm%n' $temp_file)
+    set -l start (stat -c '%Y' $temp_file)
 
     vi -c 'set noswapfile' -c 'set viminfo=' \
         -c 'set statusline=%t\ %m%=%y\ \ \ %-14.(%l:%c%V%)\ %P' -- $temp_file
 
-    set -l stop (stat -f '%Dm%n' $temp_file)
+    set -l stop (stat -c '%Y' $temp_file)
 
     if [ $stop -gt $start ]
         gpg --yes --default-recipient-self -o $file -e $temp_file
