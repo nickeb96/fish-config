@@ -7,6 +7,7 @@ abbr -a less 'less -RXSF'
 abbr -a echon "printf '%s\n'"
 abbr -a now "date '+%I:%M %p'"
 abbr -a today "date '+%A - %m/%d/%y'"
+abbr -a epoch 'date +%s'
 abbr -a tree 'tree -C'
 abbr -a cg 'cargo'
 abbr -a http-server 'http-server -c-1'

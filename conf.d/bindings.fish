@@ -3,6 +3,9 @@ status is-interactive || exit
 function _verify_quit
     if not set -q _ctrl_d_pressed
         set -g _ctrl_d_pressed 1
+        if functions -q fish_right_prompt
+            functions -c fish_right_prompt _old_fish_right_prompt
+        end
         function fish_right_prompt
             if set -q _ctrl_d_pressed && [ $_ctrl_d_pressed -ge 2 ]
                 echo (set_color --bold)'...[ctrl-d]'(set_color normal)
@@ -13,6 +16,10 @@ function _verify_quit
         function _reset_ctrl_d --on-event=fish_prompt --on-event=fish_cancel
             set -e _ctrl_d_pressed
             functions -e fish_right_prompt
+            if functions -q _old_fish_right_prompt
+                functions -c _old_fish_right_prompt fish_right_prompt
+                functions -e _old_fish_right_prompt
+            end
             commandline -f repaint
             functions -e _reset_ctrl_d
         end
@@ -72,6 +79,7 @@ end
 
 bind \cv edit_command_buffer
 bind \co insert-line-over
+bind ctrl-enter 'commandline --insert \\n'
 bind \cl 'begin ; end'  # no-op
 
 bind \cc _ctrl_c
@@ -82,6 +90,7 @@ bind \e\cf forward-word
 bind \e\cb backward-word
 bind \e\cd kill-word
 bind \cd _ctrl_d
+bind \e\ch backward-kill-word
 
 bind \cs accept-autosuggestion
 bind \e\cm __fish_man_page

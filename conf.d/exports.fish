@@ -12,7 +12,7 @@ set -gx PAGER less
 set -gx LESSHISTFILE /dev/null
 set -gx SQLITE_HISTORY /dev/null
 set -gx PSQL_HISTORY /dev/null
-
+set -gx PYTHON_HISTORY /dev/null
 set -gx PYTHONPATH ~/.local/lib/python
 set -gx PYTHONSTARTUP ~/.config/python/startup.py
 set -gx PYTHONDONTWRITEBYTECODE 1
@@ -35,4 +35,6 @@ set -g rsync_options --times --crtimes --open-noatime \
     --perms --owner --group --links --recursive --cvs-exclude --progress
 
 contains qmark-noglob $fish_features
-or set -a -U fish_features qmark-noglob remove-percent-self
+or set -a -U fish_features qmark-noglob
+contains remove-percent-self $fish_features
+or set -a -U fish_features remove-percent-self

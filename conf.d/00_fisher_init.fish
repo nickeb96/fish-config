@@ -20,9 +20,9 @@ for conf in $fisher_path/conf.d/*.fish
     source $conf
 end
 
-if status is-interactive && not functions -q fisher
+if status is-interactive && not functions -q fisher && command -q curl
     echo 'fisher not installed, installing now'
     set -l src 'https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish'
     curl -s $src | source
-    fisher update
+    and fisher update
 end
