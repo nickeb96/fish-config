@@ -14,5 +14,5 @@ abbr -a http-server 'http-server -c-1'
 abbr -a venv 'python -m venv .venv'
 abbr -a ni 'neovide'
 
-abbr -a md-html 'pulldown-cmark -TFSLPH'
+abbr -a md-html 'pulldown-cmark -TmFSLPHMRG'
 abbr -a md-pdf 'pandoc -d md2pdf'
