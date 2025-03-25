@@ -40,8 +40,8 @@ end
 
 function _override_tab
     set -g _tab_pressed_last true
-    if functions --query _pisces_complete
-        _pisces_complete
+    if functions --query _autopair_tab
+        _autopair_tab
     else
         commandline -f complete
     end
@@ -64,11 +64,17 @@ function _override_slash
 end
 
 function _auto_remove_slash_key_bindings --on-variable fish_key_bindings
-    bind --mode default ' ' _override_space
-    bind --mode default \r _override_enter
-    bind --mode default \n _override_enter
-    bind --mode default \t _override_tab
-    bind --mode default '/' _override_slash
+    bind -m default ' ' _override_space
+    bind -m default \r _override_enter
+    bind -m default \n _override_enter
+    bind -m default enter _override_enter
+    bind -m default \cm _override_enter
+    bind -m default \cj _override_enter
+    bind -m default ctrl-m _override_enter
+    bind -m default ctrl-j _override_enter
+    bind -m default \t _override_tab
+    bind -m default tab _override_tab
+    bind -m default '/' _override_slash
 end
 
 _auto_remove_slash_key_bindings

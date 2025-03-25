@@ -8,7 +8,7 @@ complete -c rustfmt -l emit -d 'What data to emit and how' -ra \
      json\t"Emit diffs in JSON format"'
 complete -c rustfmt -l backup -d 'Backup any modified files'
 complete -c rustfmt -l config-path -d 'Path for the config file'
-complete -c rustfmt -l edition -d 'Rust edition to use' -ra '2015 2018 2021'
+complete -c rustfmt -l edition -d 'Rust edition to use' -ra '2015 2018 2021 2024'
 complete -c rustfmt -l color -d 'Use colord output' -ra 'always never auto'
 complete -c rustfmt -l print-config -d 'Dump config to path' -rfa 'default minimal current'
 complete -c rustfmt -l files-with-diff -s l -d 'Print names of mismatched files'

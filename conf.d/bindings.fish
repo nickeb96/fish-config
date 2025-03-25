@@ -77,21 +77,28 @@ function _ctrl_p
 end
 
 
-bind \cv edit_command_buffer
-bind \co insert-line-over
-bind ctrl-enter 'commandline --insert \\n'
-bind \cl 'begin ; end'  # no-op
+function _user_key_bindings --on-variable fish_key_bindings
+    bind -m default \cv edit_command_buffer
+    bind -m default \co insert-line-over
+    if string match -q '4*' $FISH_VERSION
+        bind -m default ctrl-enter 'commandline --insert \\n'
+        bind -m default ctrl-space 'commandline --insert " "'
+    end
+    bind -m default \cl 'begin ; end'  # no-op
 
-bind \cc _ctrl_c
-bind \cn _ctrl_n
-bind \cp _ctrl_p
+    bind -m default \cc _ctrl_c
+    bind -m default \cn _ctrl_n
+    bind -m default \cp _ctrl_p
 
-bind \e\cf forward-word
-bind \e\cb backward-word
-bind \e\cd kill-word
-bind \cd _ctrl_d
-bind \e\ch backward-kill-word
+    bind -m default \e\cf forward-word
+    bind -m default \e\cb backward-word
+    bind -m default \e\cd kill-word
+    bind -m default \cd _ctrl_d
+    bind -m default \e\ch backward-kill-word
 
-bind \cs accept-autosuggestion
-bind \e\cm __fish_man_page
-bind \e\cs 'fish_commandline_prepend sudo'
+    bind -m default \cs accept-autosuggestion
+    bind -m default \e\cm __fish_man_page
+    bind -m default \e\cs 'fish_commandline_prepend sudo'
+end
+
+_user_key_bindings

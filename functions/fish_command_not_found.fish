@@ -6,7 +6,7 @@ switch (uname -s)
             function _local_command_not_found
                 set -l previous (string sub --length=(string length -- $argv[1]) -- "$history[1]")
                 if [ "$argv[1]" = "$previous" ]
-                    brew which-formula --explain $argv
+                    brew which-formula --explain $argv[1]
                 else
                     __fish_default_command_not_found_handler $argv
                 end

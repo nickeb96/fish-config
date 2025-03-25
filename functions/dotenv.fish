@@ -32,15 +32,15 @@ function dotenv -d 'Tool for working with .env files'
             set -g _dotenv_sourced_variables
             cat .env | while read --line line
                 if string match -q --regex '^\s*#.*' -- $line
-                    echo Comment: $line
+                    # echo Comment: $line
                 else if string match -q --regex '^\s*$' -- $line
-                    echo Empty line
+                    # echo Empty line
                 else if string match -q --regex '^\s*(export\s+)?(?<var_name>[A-Za-z0-9_]+)=(?<var_value>.*)$' -- $line
                     set -ga _dotenv_sourced_variables $var_name
                     # string replace --regex '\$\w+'
                     set -gx $var_name "$(string unescape --style=script -- $var_value)"
                 else
-                    echo Invalid line
+                    echo "dotenv: Invalid line: $line" 2>&2
                 end
             end
 
@@ -79,14 +79,31 @@ function dotenv -d 'Tool for working with .env files'
                 printf '%s\n' $var_name
             end
 
-        case help
-            echo 'TODO: write help docs'
+        case help -h --help
+            echo 'dotenv: Tool for working with .env files'
+            echo
+            echo 'Usage: dotenv [SUBCOMMAND]'
+            echo
+            echo 'Subcommands:'
+            echo '  source [FILE]   Source a dotenv file (.env by default)'
+            echo '  unsource        Unsource the most recently sourced dotenv file'
+            echo '  enable-auto     Enable auto-sourcing a .env file when changing directories'
+            echo '  disable-auto    Disable the enable-auto subcommand'
+            echo '  list            List all variable names that came from a dotenv file'
+            echo '  query,-q        Return 0 if a dotenv file has been sourced, 2 otherwise'
+            echo '  prompt          Display a prompt that can be used within fish_prompt or fish_right_prompt'
+            echo '  help,-h,--help  Display this help text'
 
-        case -q
+        case query -q
             set -q _dotenv_sourced_path
             return $status
 
+        case ''
+            echo 'dotenv: No subcommand given' >&2
+            return 1
+
         case '*'
+            echo 'dotenv: Unexpected argument' >&2
             return 1
     end
 end
