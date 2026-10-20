@@ -3,20 +3,18 @@ status is-interactive || exit
 function _override_space
     set -l cmd (commandline --cut-at-cursor)
     set -l split (string split -- ' ' $cmd)
-    switch $split[-1]
-        case '*/'
-            if [ "$_tab_pressed_last" = true ]
-                set -g _tab_pressed_last false
-                set -l length (math "$(string length $cmd) - 1")
-                set -l new_cmd (string sub --length $length $cmd)
-                commandline --replace $new_cmd
-            end
-            commandline -f expand-abbr
-            commandline --insert ' '
-        case '*'
-            commandline -f expand-abbr
-            commandline --insert ' '
+    set -l use_search_field
+    if commandline --search-field >/dev/null
+        set use_search_field --search-field
     end
+    if string match -q '*/' -- "$split[-1]" && [ "$_tab_pressed_last" = true ]
+        set -g _tab_pressed_last false
+        set -l length (math "$(string length -- $cmd) - 1")
+        set -l new_cmd (string sub --length=$length -- $cmd)
+        commandline $use_search_field --replace -- $new_cmd
+    end
+    commandline $use_search_field -f expand-abbr
+    commandline $use_search_field --insert ' '
 end
 
 function _override_enter
@@ -48,7 +46,9 @@ function _override_tab
 end
 
 function _override_slash
-    if [ "$_tab_pressed_last" = true ]
+    if commandline --search-field >/dev/null
+        commandline --search-field --insert '/'
+    else if [ "$_tab_pressed_last" = true ]
         set -l cmd (commandline --cut-at-cursor)
         if ! string match -q '*/' "$cmd"
             commandline --insert '/'

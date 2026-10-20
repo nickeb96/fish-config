@@ -3,24 +3,28 @@ function dotenv -d 'Tool for working with .env files'
     switch "$subcmd"
         case prompt
             if set -q _dotenv_sourced_path
-                set -l brackets '(' ')'
-                if set -q _dotenv_auto_sourced
-                    set brackets '[' ']'
+                if string match -q -- '-' $_dotenv_sourced_path
+                    printf '(dotenv -)'
+                else
+                    set -l brackets '(' ')'
+                    if set -q _dotenv_auto_sourced
+                        set brackets '[' ']'
+                    end
+                    printf '%s%s/%s%s' \
+                        $brackets[1] \
+                        (path dirname $_dotenv_sourced_path | path basename) \
+                        (path basename $_dotenv_sourced_path) \
+                        $brackets[2]
                 end
-                printf '%s%s/%s%s' \
-                    $brackets[1] \
-                    (path dirname $_dotenv_sourced_path | path basename) \
-                    (path basename $_dotenv_sourced_path) \
-                    $brackets[2]
             end
 
-        case source
+        case source s
             set -l env_file $argv[2]
             if not string length -q -- $env_file
                 set env_file .env
             end
             # echo sourcing $env_file ...
-            if not test -e $env_file
+            if not test -e $env_file && not string match -q -- '-' $env_file
                 echo "dotenv: $env_file does not exist" >&2
                 return 1
             end
@@ -28,19 +32,29 @@ function dotenv -d 'Tool for working with .env files'
                 echo 'dotenv: Unsourcing previous env...' >&2
                 dotenv unsource
             end
-            set -g _dotenv_sourced_path $PWD/$env_file
+            if not string match -q -- '-' $env_file
+                set -g _dotenv_sourced_path $PWD/$env_file
+            else
+                set -g _dotenv_sourced_path -
+            end
+            set -l readonly_vars FISH_VERSION PWD SHLVL _ fish_kill_signal fish_killring \
+                fish_pid history hostname pipestatus status status_generation umask version
             set -g _dotenv_sourced_variables
-            cat .env | while read --line line
+            cat $env_file | while read --line line
                 if string match -q --regex '^\s*#.*' -- $line
                     # echo Comment: $line
                 else if string match -q --regex '^\s*$' -- $line
                     # echo Empty line
                 else if string match -q --regex '^\s*(export\s+)?(?<var_name>[A-Za-z0-9_]+)=(?<var_value>.*)$' -- $line
+                    if contains $var_name $readonly_vars
+                        dotenv unsource
+                        echo "dotenv: Attempt to set read-only variable: $var_name" >&2
+                    end
                     set -ga _dotenv_sourced_variables $var_name
                     # string replace --regex '\$\w+'
                     set -gx $var_name "$(string unescape --style=script -- $var_value)"
                 else
-                    echo "dotenv: Invalid line: $line" 2>&2
+                    echo "dotenv: Invalid line: $line" >&2
                 end
             end
 
@@ -53,9 +67,9 @@ function dotenv -d 'Tool for working with .env files'
             for var in $_dotenv_sourced_variables
                 set -ge $var
             end
+            set -ge _dotenv_auto_sourced
             set -ge _dotenv_sourced_variables
             set -ge _dotenv_sourced_path
-            set -ge _dotenv_auto_sourced
 
         case enable-auto
             function _dotenv_auto_sourcer --on-variable=PWD
@@ -65,7 +79,7 @@ function dotenv -d 'Tool for working with .env files'
                         dotenv unsource
                     end
                 end
-                if ! set -gq _dotenv_sourced_path && test -e .env
+                if not set -gq _dotenv_sourced_path && test -e .env
                     dotenv source
                     set -g _dotenv_auto_sourced
                 end
@@ -73,6 +87,9 @@ function dotenv -d 'Tool for working with .env files'
 
         case disable-auto
             functions -e _dotenv_auto_sourcer
+            if set -gq _dotenv_auto_sourced
+                dotenv unsource
+            end
 
         case list
             for var_name in $_dotenv_sourced_variables
@@ -103,7 +120,7 @@ function dotenv -d 'Tool for working with .env files'
             return 1
 
         case '*'
-            echo 'dotenv: Unexpected argument' >&2
+            echo 'dotenv: Invalid argument' >&2
             return 1
     end
 end

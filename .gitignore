@@ -1,4 +1,6 @@
 # ignore universal variables
 /fish_variables
-# leave config.fish for machine local config
+# don't use config.fish
 /config.fish
+# leave conf.d/local.fish for machine local config
+/conf.d/local.fish

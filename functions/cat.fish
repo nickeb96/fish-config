@@ -4,7 +4,7 @@ function cat --wraps=cat --description 'Fold markdown files instead of cat when 
         # fold instead
         set -l markdown 0
         for arg in $argv
-            if string match -q -- "*.md" $arg
+            if string match -q -- '*.md' $arg && ! string match -q -- '-*'
                 set markdown 1
             else
                 set markdown 0
@@ -12,10 +12,11 @@ function cat --wraps=cat --description 'Fold markdown files instead of cat when 
             end
         end
         if [ $markdown -eq 1 ] && command -q fold
-            set -q COLUMNS
-            or set -l COLUMNS 80
-            # round down to nearest multiple of 8 for fold
-            set width (math "bitand($COLUMNS, 0xFFFFFFF8)")
+            # set -q COLUMNS
+            # or set -l COLUMNS 80
+            # # round down to nearest multiple of 8 for fold
+            # set -l width (math "bitand($COLUMNS, 0xFFFFFFF8)")
+            set -l width 80
             command fold -s -w $width $argv
         else
             command cat $argv

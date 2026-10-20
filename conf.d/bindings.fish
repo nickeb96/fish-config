@@ -43,7 +43,7 @@ function _ctrl_c
     if commandline --search-mode || commandline --paging-mode
         commandline -f cancel
     else if commandline | string length --quiet
-        commandline -f kill-whole-line
+        commandline -f cancel or kill-whole-line
     else
         emit fish_cancel
     end
@@ -84,7 +84,8 @@ function _user_key_bindings --on-variable fish_key_bindings
         bind -m default ctrl-enter 'commandline --insert \\n'
         bind -m default ctrl-space 'commandline --insert " "'
     end
-    bind -m default \cl 'begin ; end'  # no-op
+
+    bind -m default \cl pager-toggle-search
 
     bind -m default \cc _ctrl_c
     bind -m default \cn _ctrl_n
@@ -97,8 +98,8 @@ function _user_key_bindings --on-variable fish_key_bindings
     bind -m default \e\ch backward-kill-word
 
     bind -m default \cs accept-autosuggestion
-    bind -m default \e\cm __fish_man_page
-    bind -m default \e\cs 'fish_commandline_prepend sudo'
+    bind -m default \em __fish_man_page
+    # bind -m default \e\cs 'fish_commandline_prepend sudo'
 end
 
 _user_key_bindings

@@ -1,14 +1,15 @@
-complete -c rustfmt -k -a '(__fish_complete_suffix rs)'
+complete -c rustfmt -f -k -x -a '(__fish_complete_suffix .rs)'
 complete -c rustfmt -l check -d 'Run in\'check\' mode'
-complete -c rustfmt -l emit -d 'What data to emit and how' -ra \
-    'files\t"Overwrite files"
-     stdout\t"Write output to stdout"
-     coverage\t"Display how much input was processed"
-     checkstyle\t"Emit checkstyle format"
-     json\t"Emit diffs in JSON format"'
+complete -c rustfmt -l emit -d 'What data to emit and how' -fra '
+files\t"Overwrite files"
+stdout\t"Write output to stdout"
+coverage\t"Display how much input was processed"
+checkstyle\t"Emit checkstyle format"
+json\t"Emit diffs in JSON format"
+'
 complete -c rustfmt -l backup -d 'Backup any modified files'
 complete -c rustfmt -l config-path -d 'Path for the config file'
-complete -c rustfmt -l edition -d 'Rust edition to use' -ra '2015 2018 2021 2024'
+complete -c rustfmt -l edition -d 'Rust edition to use' -fra '2015 2018 2021 2024'
 complete -c rustfmt -l color -d 'Use colord output' -ra 'always never auto'
 complete -c rustfmt -l print-config -d 'Dump config to path' -rfa 'default minimal current'
 complete -c rustfmt -l files-with-diff -s l -d 'Print names of mismatched files'
